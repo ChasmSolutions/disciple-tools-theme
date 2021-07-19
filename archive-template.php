@@ -459,7 +459,7 @@ dt_please_log_in();
                                             if ( isset( $b["show_in_table"] ) ){
                                                 $b_order = is_numeric( $b["show_in_table"] ) ? $b["show_in_table"] : 90;
                                             }
-                                            return $a_order > $b_order;
+                                            return $a_order <=> $b_order;
                                         });
                                         foreach ( $post_settings["fields"] as $field_key => $field_value ){
                                             if ( ( isset( $field_value["show_in_table"] ) && $field_value["show_in_table"] ) ){

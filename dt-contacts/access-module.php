@@ -348,7 +348,7 @@ class DT_Contacts_Access extends DT_Module_Base {
 
             //order overall status options
             uksort( $declared_fields["overall_status"]["default"], function ( $a, $b ) use ( $fields ){
-                return array_search( $a, array_keys( $fields["overall_status"]["default"] ) ) > array_search( $b, array_keys( $fields["overall_status"]["default"] ) );
+                return array_search( $a, array_keys( $fields["overall_status"]["default"] ) ) <=> array_search( $b, array_keys( $fields["overall_status"]["default"] ) );
             } );
             $fields = $declared_fields;
         }

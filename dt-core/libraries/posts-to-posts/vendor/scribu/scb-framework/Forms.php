@@ -62,7 +62,7 @@ class scbForms {
 	 *
 	 * @return string
 	 */
-	public static function form( $inputs, $formdata = null, $nonce ) {
+	public static function form( $inputs, $formdata = null, $nonce = 'update_options' ) {
 		$output = '';
 		foreach ( $inputs as $input ) {
 			$output .= self::input( $input, $formdata );
@@ -1045,4 +1045,3 @@ class scbCustomField implements scbFormField_I {
 		return call_user_func( $this->sanitize, $value, $this );
 	}
 }
-
