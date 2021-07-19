@@ -50,6 +50,12 @@ class Disciple_Tools_Users
         add_filter( 'dt_settings_js_data', [ $this, 'add_current_locations_list' ], 10, 1 );
         add_filter( 'dt_settings_js_data', [ $this, 'add_date_availability' ], 10, 1 );
 
+        add_action( 'delete_user', [ $this,'dt_delete_user_contact_meta' ], 10, 1 );
+
+        add_action( 'remove_user_from_blog', [ $this,'dt_delete_user_contact_meta' ], 10, 1 );
+        add_action( 'wpmu_delete_user', [ $this,'dt_multisite_delete_user_contact_meta' ], 10, 1 );
+
+
     }
 
     /**
@@ -1273,5 +1279,30 @@ Please click the following link to confirm the invite:
         }
     }
 
+    public static function dt_delete_user_contact_meta( $user_id ) {
+        global $wpdb;
+        $wpdb->get_results(
+            $wpdb->prepare( "DELETE FROM $wpdb->postmeta pm WHERE meta_key = 'corresponds_to_user' AND pm.meta_value = %d
+            ", $user_id )
+        );
+    }
 
+    /** Multisite Only
+     *  This will remove the 'corresponds_to_user' meta key and value from all sites on the network if deleted by a super admin
+     */
+    public static function dt_multisite_delete_user_contact_meta( $user_id ) {
+        $blogs = get_sites();
+        if ( ! empty( $blogs ) ) {
+            foreach ( $blogs as $blog ) {
+                switch_to_blog( $blog->userblog_id );
+                global $wpdb;
+                $wpdb->get_results(
+                    $wpdb->prepare( "DELETE FROM $wpdb->postmeta pm WHERE meta_key = 'corresponds_to_user' AND pm.meta_value = %d
+                    ", $user_id )
+                );
+
+                restore_current_blog();
+            }
+        }
+    }
 }
