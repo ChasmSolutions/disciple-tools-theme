@@ -173,6 +173,7 @@ else {
             $is_rest = dt_is_rest();
             $url_path = dt_get_url_path();
             require_once( get_template_directory() . '/dt-core/libraries/posts-to-posts/posts-to-posts.php' ); // P2P library/plugin. Required before DT instance
+            require_once( get_template_directory() . '/dt-core/libraries/wp-queue/wp-queue.php' ); //w
             require_once( get_template_directory() . '/dt-core/configuration/config-site-defaults.php' ); // Force required site configurations
             require_once( get_template_directory() . '/dt-core/wp-async-request.php' ); // Async Task Processing
             require_once( get_template_directory() . '/dt-core/configuration/restrict-rest-api.php' ); // sets authentication requirement for rest end points. Disables rest for pre-wp-4.7 sites.
@@ -410,6 +411,10 @@ else {
                 require_once( get_template_directory() . '/dt-core/setup-functions.php' );
 
             }
+
+            //create scheduler for job queue
+            wp_queue()->cron();
+
             /* End Admin configuration section */
 
             require_once( get_template_directory() . '/dt-core/dependencies/deprecated-dt-functions.php' );
