@@ -452,6 +452,9 @@ class Disciple_Tools_Users_Endpoints
         if ( !empty( $body["gender"] ) ) {
             update_user_option( $user->ID, 'user_gender', $body["gender"] );
         }
+        if ( !empty( $body["email-preference"] ) ) {
+            update_user_meta( $user->ID, 'email_preference', $body["email-preference"] );
+        }
         try {
             do_action( 'dt_update_user', $user, $body );
         } catch (Exception $e) {

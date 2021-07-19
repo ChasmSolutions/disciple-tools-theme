@@ -333,6 +333,18 @@ $('select.select-field').change(e => {
     $(`#${id}-spinner`).removeClass("active")
   }).catch(handleAjaxError)
 })
+$('input[name="email-preference"]').on('change', (e) => {
+  const optionId = e.target.id.replace('-preference', '')
+  const loadingSpinner = $('#email-preference-spinner')
+  loadingSpinner.addClass('active')
+  update_user('email-preference', optionId)
+  .then(() => {
+    loadingSpinner.removeClass('active')
+  })
+  .fail(() => {
+    loadingSpinner.removeClass('active')
+  })
+})
 
 /**
  * People groups

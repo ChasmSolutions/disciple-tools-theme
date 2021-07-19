@@ -436,6 +436,26 @@ $apps_list = apply_filters( 'dt_settings_apps_list', $apps_list = [] );
                         <span class="section-header"><?php esc_html_e( 'Notifications', 'disciple_tools' )?></span>
                         <hr/>
 
+                        <?php $email_preference = isset( $dt_user_meta['email_preference'] ) ? $dt_user_meta['email_preference'][0] : null ?>
+                        <p>
+                            <strong><?php echo esc_html_e( 'Email preferences', 'disciple_tools' ) ?></strong>
+                            <span id="email-preference-spinner" class="loading-spinner"></span>
+                        </p>
+                        <div>
+                            <label for="real-time-preference">
+                                <input id="real-time-preference" type="radio" name="email-preference" <?php echo !$email_preference || $email_preference === 'real-time' ? 'checked' : '' ?>>
+                                <?php echo esc_html_e( 'Real time', 'disciple_tools' ) ?>
+                            </label>
+                            <label for="hourly-preference">
+                                <input id="hourly-preference" type="radio" name="email-preference" <?php echo $email_preference && $email_preference === 'hourly' ? 'checked' : '' ?>>
+                                <?php echo esc_html_e( 'Hourly digest', 'disciple_tools' ) ?>
+                            </label>
+                            <label for="daily-preference">
+                                <input id="daily-preference" type="radio" name="email-preference" <?php echo $email_preference && $email_preference === 'daily' ? 'checked' : '' ?>>
+                                <?php echo esc_html_e( 'Daily digest', 'disciple_tools' ) ?>
+                            </label>
+                        </div>
+
                         <table class="form-table">
                             <thead>
                             <tr>

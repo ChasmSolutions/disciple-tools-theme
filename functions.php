@@ -331,6 +331,13 @@ else {
             require_once( get_template_directory() . '/dt-core/logging/usage.php' );
 
             /**
+             * dt-notifications queue
+             */
+            require_once( get_template_directory() . '/dt-notifications/notifications-queue.php' );
+            require_once( get_template_directory() . '/dt-notifications/notifications-scheduler.php' );
+            $this->notifications_scheduler = new Disciple_Tools_Notifications_Scheduler( Disciple_Tools_Notifications::instance() );
+
+            /**
              * Logging
              */
             require_once( get_template_directory() . '/dt-core/logging/class-activity-api.php' );
@@ -470,6 +477,7 @@ else {
         $wpdb->dt_reportmeta = $wpdb->prefix . 'dt_reportmeta';
         $wpdb->dt_share = $wpdb->prefix . 'dt_share';
         $wpdb->dt_notifications = $wpdb->prefix . 'dt_notifications';
+        $wpdb->dt_notifications_queue = $wpdb->prefix . 'dt_notifications_queue';
         $wpdb->dt_post_user_meta = $wpdb->prefix . 'dt_post_user_meta';
         $wpdb->dt_location_grid = $wpdb->prefix . 'dt_location_grid';
         $wpdb->dt_location_grid_meta = $wpdb->prefix . 'dt_location_grid_meta';
